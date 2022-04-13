@@ -36,3 +36,31 @@
     transform: rotate(360deg);
   }
 }
+
+.main{
+  display: flex;
+  background-color: wheat;
+  height: 100vh;
+}
+
+.nav-bar{
+  display: flex;
+  flex-direction: column;
+  background-color:green;
+  border: 1px solid black;
+  color: white;
+}
+
+nav a{
+  margin: 1rem;
+}
+
+nav a.active{
+  text-decoration: none;
+  font-weight: bold;
+  
+}
+
+.setting-nav{
+  margin: 10px;
+}

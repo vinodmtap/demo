@@ -1,49 +1,28 @@
 import React from 'react'
-import {
-    Table,
-    Thead,
-    Tbody,
-    Tfoot,
-    Tr,
-    Th,
-    Td,
-    TableCaption,
-    TableContainer,
-  } from '@chakra-ui/react'
-
+import '../App.css'
+import { Route, Routes } from 'react-router-dom'
+import SettingsNav from './SettingsNav'
+import Employee from './settings/Employee'
+import Driver from './settings/Driver'
+import Team from './settings/Team'
+import FuelRates from './settings/FuelRates'
+import NodalPoint from './settings/NodalPoint'
+import Vehicle from './settings/Vehicle'
+import Vendor from './settings/Vendor'
 
 const Settings = () => {
   return (
     <div>
-<TableContainer>
-    <Table variant='smooth'>
-      <Thead>
-        <Tr>
-          <Th>ID</Th>
-          <Th>Name</Th>
-          <Th isNumeric>Gender</Th>
-        </Tr>
-      </Thead>
-      <Tbody>
-        <Tr>
-          <Td>01</Td>
-          <Td>ram</Td>
-          <Td isNumeric>Male</Td>
-        </Tr>
-        <Tr>
-          <Td>02</Td>
-          <Td>anil</Td>
-          <Td isNumeric>Male</Td>
-        </Tr>
-        <Tr>
-          <Td>03</Td>
-          <Td>ajay</Td>
-          <Td isNumeric>Male</Td>
-        </Tr>
-      </Tbody>
-    </Table>
-  </TableContainer>
-       
+      <SettingsNav className='setting-nav'/>
+       <Routes>
+         <Route path='employee' element={<Employee/>}></Route>
+         <Route path='driver' element={<Driver/>}></Route>
+         <Route path='team' element={<Team/>}></Route>
+         <Route path='fuelrates' element={<FuelRates/>}></Route>
+         <Route path='nodalpoints' element={<NodalPoint/>}></Route>
+         <Route path='vehicle' element={<Vehicle/>}></Route>
+         <Route path='vendor' element={<Vendor/>}></Route>
+       </Routes>
     </div>
   )
 }
