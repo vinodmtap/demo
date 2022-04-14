@@ -1,0 +1,44 @@
+[
+    {
+        "id": 1,
+        "name":"Ram",
+        "gender":"MALE",
+        "state": "Karnatak",
+        "city": "Bengaluru"
+    },
+    {
+        "id": 2,
+        "name":"Ajay",
+        "gender":"MALE",
+        "state": "Delhi",
+        "city": "Delhi"
+    },
+    {
+        "id": 3,
+        "name":"sanjay",
+        "gender":"MALE",
+        "state": "Uttar Pradesh",
+        "city": "Agra"
+    },
+    {
+        "id": 4,
+        "name":"Aakash",
+        "gender":"MALE",
+        "state": "Maharashtra",
+        "city": "Pune"
+    },
+    {
+        "id": 5,
+        "name":"Vikash",
+        "gender":"MALE",
+        "state": "Kerala",
+        "city": "Coimbtoore"
+    },
+    {
+        "id": 6,
+        "name":"Devesh",
+        "gender":"MALE",
+        "state": "Goa",
+        "city": "Goa"
+    }
+]

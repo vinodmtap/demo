@@ -40,7 +40,7 @@
 .main{
   display: flex;
   background-color: wheat;
-  height: 100vh;
+  /* height: 100vh; */
 }
 
 .nav-bar{
