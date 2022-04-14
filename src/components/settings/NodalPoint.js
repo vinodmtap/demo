@@ -53,8 +53,8 @@ const NodalPoint = () => {
               <Th onClick={()=>sorting("company_name")}>Company Name</Th>
               <Th onClick={()=>sorting("employee_name")}>Employee Name</Th>
               <Th  onClick={()=>sorting("company_email")}>Company Email</Th>
-              <Th onClick={()=>sorting("pickup_address")}>Employee Pickup Address</Th>
-              <Th onClick={()=>sorting("destination_address")}>Employee  Destination Address</Th>
+              <Th onClick={()=>sorting("pickup_address")}>Pickup Nodalpoint</Th>
+              <Th onClick={()=>sorting("destination_address")}>Drop Nodalpoint</Th>
             </Tr>
           </Thead>
           <Tbody>

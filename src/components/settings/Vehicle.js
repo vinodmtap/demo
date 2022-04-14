@@ -65,7 +65,7 @@ const Vehicle = () => {
                 val.vehicle_brand.toLowerCase().includes(search.toLowerCase()) || 
                 val.vehicle_model.toLowerCase().includes(search.toLowerCase()) || 
                 val.driver_name.toLowerCase().includes(search.toLowerCase()) || 
-                val.river_address.toLowerCase().includes(search.toLowerCase())
+                val.driver_address.toLowerCase().includes(search.toLowerCase())
               ){
                 return val;
               }
