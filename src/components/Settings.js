@@ -14,6 +14,7 @@ const Settings = () => {
   return (
     <div>
       <SettingsNav className='setting-nav'/>
+      
        <Routes>
          <Route path='employee' element={<Employee/>}></Route>
          <Route path='driver' element={<Driver/>}></Route>
