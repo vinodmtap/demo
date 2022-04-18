@@ -8,7 +8,7 @@ const Employee = () => {
   const data = [...MockData];
   return (
     <Box>
-      <TableData body={data} header={header}/>
+      <TableData body={data} header={header} />
     </Box>
   )
 }

@@ -29,8 +29,8 @@ function App() {
         <Route path='trips' element={<Trips />}></Route>
         <Route path='specialtrips' element={<SpecialTrips />}></Route>
         <Route path='livemap' element={<LiveMap />}>
-        <Route path='driver' element={<Driver />}></Route>
-        <Route path='team' element={<Team/>} ></Route>
+          <Route path='driver' element={<Driver />}></Route>
+          <Route path='team' element={<Team />} ></Route>
           {/* <Route path='team' element={<Team />} ></Route> */}
         </Route>
         <Route path='reports' element={<Reports />}></Route>
@@ -40,13 +40,13 @@ function App() {
         <Route path='lounge' element={<Lounge />}></Route>
         <Route path='alert' element={<Alert />}></Route>
         <Route path='settings' element={<Settings />}>
-          <Route path='employee' element={<Employee/>}></Route>
-          <Route path='driver' element={<Driver/>}></Route>
-         <Route path='team' element={<Team/>}></Route>
-         <Route path='fuelrates' element={<FuelRates/>}></Route>
-         <Route path='nodalpoints' element={<NodalPoint/>}></Route>
-         <Route path='vehicle' element={<Vehicle/>}></Route>
-         <Route path='vendor' element={<Vendor/>}></Route>
+          <Route path='employee' element={<Employee />}></Route>
+          <Route path='driver' element={<Driver />}></Route>
+          <Route path='team' element={<Team />}></Route>
+          <Route path='fuelrates' element={<FuelRates />}></Route>
+          <Route path='nodalpoints' element={<NodalPoint />}></Route>
+          <Route path='vehicle' element={<Vehicle />}></Route>
+          <Route path='vendor' element={<Vendor />}></Route>
         </Route>
       </Routes>
     </div>

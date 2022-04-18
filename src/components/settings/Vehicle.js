@@ -10,7 +10,6 @@ const Vehicle = () => {
   return (
     <Box>
       <TableData body={data} header={header} />
-      <h1>hi</h1>
     </Box>
   )
 }
