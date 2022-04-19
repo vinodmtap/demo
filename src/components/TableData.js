@@ -35,13 +35,25 @@ const TableData = (props) => {
     }
 
     const sorting = (col) => {
-        if (order === "ASC") {
+        if(col==="id" && order === "ASC"){
+            const sorted = [...data].sort((a, b) =>
+                a[col]> b[col]? 1 : -1
+            );
+            setData(sorted);
+            setOrder("DSC");
+        }else if (order === "ASC") {
             const sorted = [...data].sort((a, b) =>
                 a[col].toLowerCase() > b[col].toLowerCase() ? 1 : -1
             );
             setData(sorted);
             setOrder("DSC");
-        } else if (order === "DSC") {
+        }if(col==="id" && order === "DSC"){
+            const sorted = [...data].sort((a, b) =>
+                a[col]<b[col]? 1 : -1
+            );
+            setData(sorted);
+            setOrder("DSC");
+        }  else if (order === "DSC") {
             const sorted = [...data].sort((a, b) =>
                 a[col].toLowerCase() < b[col].toLowerCase() ? 1 : -1
             );
@@ -71,6 +83,7 @@ const TableData = (props) => {
                                 if (search === "") {
                                     return val;
                                 } else if (
+                                    (val.id && val.id.toString().includes(search.toString())) ||
                                     (val.first_name && val.first_name.toLowerCase().includes(search.toLowerCase())) ||
                                     (val.last_name && val.last_name.toLowerCase().includes(search.toLowerCase())) ||
                                     (val.gender && val.gender.toLowerCase().includes(search.toLowerCase())) ||
