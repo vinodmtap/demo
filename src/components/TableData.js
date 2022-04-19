@@ -47,12 +47,12 @@ const TableData = (props) => {
             );
             setData(sorted);
             setOrder("DSC");
-        }if(col==="id" && order === "DSC"){
+        }else if(col==="id" && order === "DSC"){
             const sorted = [...data].sort((a, b) =>
                 a[col]<b[col]? 1 : -1
             );
             setData(sorted);
-            setOrder("DSC");
+            setOrder("ASC");
         }  else if (order === "DSC") {
             const sorted = [...data].sort((a, b) =>
                 a[col].toLowerCase() < b[col].toLowerCase() ? 1 : -1
