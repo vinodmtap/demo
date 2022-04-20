@@ -14,10 +14,13 @@ import {
 } from '@chakra-ui/react'
 import { useState } from 'react';
 import TablePagination from './TablePagination';
+import { ArrowDownIcon, ArrowUpIcon } from '@chakra-ui/icons';
 
 const TableData = (props) => {
     const [data, setData] = useState(props.body);
     // const[head, setHead] = useState(props.header);
+    const [arrow, setArrow] = useState(null);
+    const [state, setState] = useState(null);
     const [order, setOrder] = useState("ASC");
     const [search, setSearch] = useState("");
     const head = props.header;
@@ -35,28 +38,36 @@ const TableData = (props) => {
     }
 
     const sorting = (col) => {
-        if(col==="id" && order === "ASC"){
+        if (col === "id" && order === "ASC") {
             const sorted = [...data].sort((a, b) =>
-                a[col]> b[col]? 1 : -1
+                a[col] > b[col] ? 1 : -1
             );
+            setState(col);
+            setArrow(<ArrowUpIcon />);
             setData(sorted);
             setOrder("DSC");
-        }else if (order === "ASC") {
+        } else if (order === "ASC") {
             const sorted = [...data].sort((a, b) =>
                 a[col].toLowerCase() > b[col].toLowerCase() ? 1 : -1
             );
+            setState(col);
+            setArrow(<ArrowUpIcon />);
             setData(sorted);
             setOrder("DSC");
-        }else if(col==="id" && order === "DSC"){
+        } else if (col === "id" && order === "DSC") {
             const sorted = [...data].sort((a, b) =>
-                a[col]<b[col]? 1 : -1
+                a[col] < b[col] ? 1 : -1
             );
+            setState(col);
+            setArrow(<ArrowDownIcon />);
             setData(sorted);
             setOrder("ASC");
-        }  else if (order === "DSC") {
+        } else if (order === "DSC") {
             const sorted = [...data].sort((a, b) =>
                 a[col].toLowerCase() < b[col].toLowerCase() ? 1 : -1
             );
+            setState(col);
+            setArrow(<ArrowDownIcon />);
             setData(sorted);
             setOrder("ASC");
         }
@@ -75,7 +86,11 @@ const TableData = (props) => {
                     <Table>
                         <Thead>
                             <Tr>
-                                {head.map((head) => <Th key={Math.random()} onClick={() => sorting(head)}>{head}</Th>)}
+                                {head.map((head) =>
+                                    <Th key={Math.random()} onClick={() => sorting(head)}>
+                                        <Box>{head} {state === head ? arrow : null}</Box>
+                                    </Th>)
+                                }
                             </Tr>
                         </Thead>
                         <Tbody>
