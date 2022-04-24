@@ -18,7 +18,6 @@ import { ArrowDownIcon, ArrowUpIcon } from '@chakra-ui/icons';
 
 const TableData = (props) => {
     const [data, setData] = useState(props.body);
-    // const[head, setHead] = useState(props.header);
     const [arrow, setArrow] = useState(null);
     const [state, setState] = useState(null);
     const [order, setOrder] = useState("ASC");
@@ -72,7 +71,6 @@ const TableData = (props) => {
             setOrder("ASC");
         }
     }
-    //   console.log(Object.keys(data[0]).map(x=>x));
     return (
         <Box>
             <Box>
