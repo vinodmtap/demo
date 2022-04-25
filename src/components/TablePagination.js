@@ -1,17 +1,20 @@
 import { Box, Button } from '@chakra-ui/react';
 import React, { useEffect, useState } from 'react'
 
-const TablePagination = ({showPerPage, onPaginationChange, total}) => {
+const TablePagination = ({dataPerPage, onPaginationChange, total}) => {
     const[counter, setCounter] = useState(1);
     const[numberOfButtons, setNumberOfButtons] = useState(0);
 
     useEffect(()=>{
-        const value = showPerPage*counter;
-        onPaginationChange((value-showPerPage), value);
+        const value = dataPerPage*counter;
+        onPaginationChange((value-dataPerPage), value);
     },[counter])
 
+
+    console.log("count")
+    
     useEffect(()=>{
-        setNumberOfButtons(Math.ceil(total/showPerPage));
+        setNumberOfButtons(Math.ceil(total/dataPerPage));
     },[total]);
     //  console.log(onPaginationChange);
     const onButtonClick = (type) => {
@@ -22,7 +25,7 @@ const TablePagination = ({showPerPage, onPaginationChange, total}) => {
             setCounter(counter-1)
         }
     }else if(type === "next"){
-        if(Math.ceil(total/showPerPage)===counter){
+        if(Math.ceil(total/dataPerPage)===counter){
             setCounter(counter);
         }else{
             setCounter(counter+1);

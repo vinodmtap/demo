@@ -23,10 +23,11 @@ const TableData = (props) => {
     const [order, setOrder] = useState("ASC");
     const [search, setSearch] = useState("");
     const head = props.header;
-    const [showPerPage, setShowPerPage] = useState(8);
+    const dataPerPage = props.dataPerPage;
+    // const [dataPerPage, setdataPerPage] = useState(8);
     const [pagination, setPagination] = useState({
         start: 0,
-        end: showPerPage
+        end: dataPerPage
     })
 
     const onPaginationChange = (start, end) => {
@@ -71,6 +72,8 @@ const TableData = (props) => {
             setOrder("ASC");
         }
     }
+
+    console.log("remdered")
     return (
         <Box>
             <Box>
@@ -92,7 +95,7 @@ const TableData = (props) => {
                             </Tr>
                         </Thead>
                         <Tbody>
-                            {data.slice(pagination.start, pagination.end).filter((val) => {
+                            {data.filter((val) => {
                                 if (search === "") {
                                     return val;
                                 } else if (
@@ -117,27 +120,10 @@ const TableData = (props) => {
                                 ) {
                                     return val;
                                 }
-                            }).map(data => {
+                            }).slice(pagination.start, pagination.end).map(data => {
                                 return (
                                     <Tr key={data.id}>
-                                        {data.id && <Td>{data.id}</Td>}
-                                        {data.company_name && <Td>{data.company_name}</Td>}
-                                        {data.employee_name && <Td>{data.employee_name}</Td>}
-                                        {data.team_name && <Td>{data.team_name}</Td>}
-                                        {data.company_email && <Td>{data.company_email}</Td>}
-                                        {data.pickup_address && <Td>{data.pickup_address}</Td>}
-                                        {data.destination_address && <Td>{data.destination_address}</Td>}
-                                        {data.city_name && <Td>{data.city_name}</Td>}
-                                        {data.country_name && <Td>{data.country_name}</Td>}
-                                        {data.first_name && <Td>{data.first_name}</Td>}
-                                        {data.last_name && <Td>{data.last_name}</Td>}
-                                        {data.email && <Td>{data.email}</Td>}
-                                        {data.gender && <Td>{data.gender}</Td>}
-                                        {data.city && <Td>{data.city}</Td>}
-                                        {data.vehicle_brand && <Td>{data.vehicle_brand}</Td>}
-                                        {data.vehicle_model && <Td>{data.vehicle_model}</Td>}
-                                        {data.driver_name && <Td>{data.driver_name}</Td>}
-                                        {data.driver_address && <Td>{data.driver_address}</Td>}
+                                        {Object.values(data).map(x=>(<><Td>{x}</Td></>))}
                                     </Tr>
                                 )
                             })}
@@ -146,7 +132,7 @@ const TableData = (props) => {
                 </TableContainer>
             </Box>
             <TablePagination
-                showPerPage={showPerPage}
+                dataPerPage={dataPerPage}
                 onPaginationChange={onPaginationChange}
                 total={data.length}
             />

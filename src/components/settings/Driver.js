@@ -6,9 +6,10 @@ import MockData from './MOCK_DATA.json'
 const Driver = () => {
   const data = [...MockData]
   const header = ["id", "first_name", "last_name", "email", "gender", "city"];
+  const dataPerPage = 6;
   return (
     <Box>
-      <TableData body={data} header={header} />
+      <TableData body={data} header={header} dataPerPage={dataPerPage} />
     </Box>
   )
 }
