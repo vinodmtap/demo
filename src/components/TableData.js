@@ -65,7 +65,6 @@ const TableData = ({body, dataPerPage}) => {
 
     }
 
-    // console.log("rendered")
     return (
         <Box>
             <Box>

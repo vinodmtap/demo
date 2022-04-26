@@ -9,9 +9,6 @@ const TablePagination = ({dataPerPage, onPaginationChange, total}) => {
         const value = dataPerPage*counter;
         onPaginationChange((value-dataPerPage), value);
     },[counter])
-
-
-    console.log("count")
     
     useEffect(()=>{
         setNumberOfButtons(Math.ceil(total/dataPerPage));
@@ -36,7 +33,7 @@ const TablePagination = ({dataPerPage, onPaginationChange, total}) => {
     <Box>
        {counter > 1 && <Button m={2} onClick={()=>onButtonClick("prev")}>PREV</Button>} 
         {new Array(numberOfButtons).fill("").map((el,index)=>(
-            <Button m={2} onClick={()=>setCounter(index+1)} key={index}>{index+1}</Button>
+            <Button m={2} onClick={()=>setCounter(index+1)} key={index} colorScheme={index+1===counter && "teal"} >{index+1}</Button>
         ))}
         {counter !== Math.ceil(total/dataPerPage) && <Button m={2} onClick={()=>onButtonClick("next")}>NEXT</Button>}
     </Box>
