@@ -16,15 +16,12 @@ import { useState } from 'react';
 import TablePagination from './TablePagination';
 import { ArrowDownIcon, ArrowUpIcon } from '@chakra-ui/icons';
 
-const TableData = (props) => {
-    const [data, setData] = useState(props.body);
+const TableData = ({body, dataPerPage}) => {
+    const [data, setData] = useState(body);
     const [arrow, setArrow] = useState(null);
-    const [state, setState] = useState(null);
+    const [headerValue, setHeaderValue] = useState(null);
     const [order, setOrder] = useState("ASC");
     const [search, setSearch] = useState("");
-    const head = props.header;
-    const dataPerPage = props.dataPerPage;
-    // const [dataPerPage, setdataPerPage] = useState(8);
     const [pagination, setPagination] = useState({
         start: 0,
         end: dataPerPage
@@ -38,39 +35,34 @@ const TableData = (props) => {
     }
 
     const sorting = (col) => {
-        if (col === "id" && order === "ASC") {
-            const sorted = [...data].sort((a, b) =>
-                a[col] > b[col] ? 1 : -1
+        if (order === "ASC") {
+            const sorted = [...data].sort((a, b) => {
+                if (typeof a[col] === "number") {
+                    return a[col] > b[col] ? 1 : -1
+                } else {
+                    return a[col].toLowerCase() > b[col].toLowerCase() ? 1 : -1
+                }
+            }
             );
-            setState(col);
+            setHeaderValue(col);
             setArrow(<ArrowUpIcon />);
             setData(sorted);
             setOrder("DSC");
-        } else if (order === "ASC") {
-            const sorted = [...data].sort((a, b) =>
-                a[col].toLowerCase() > b[col].toLowerCase() ? 1 : -1
-            );
-            setState(col);
-            setArrow(<ArrowUpIcon />);
-            setData(sorted);
-            setOrder("DSC");
-        } else if (col === "id" && order === "DSC") {
-            const sorted = [...data].sort((a, b) =>
-                a[col] < b[col] ? 1 : -1
-            );
-            setState(col);
-            setArrow(<ArrowDownIcon />);
-            setData(sorted);
-            setOrder("ASC");
         } else if (order === "DSC") {
-            const sorted = [...data].sort((a, b) =>
-                a[col].toLowerCase() < b[col].toLowerCase() ? 1 : -1
+            const sorted = [...data].sort((a, b) => {
+                if (typeof a[col] === "number") {
+                    return a[col] < b[col] ? 1 : -1
+                } else {
+                    return a[col].toLowerCase() < b[col].toLowerCase() ? 1 : -1
+                }
+            }
             );
-            setState(col);
+            setHeaderValue(col);
             setArrow(<ArrowDownIcon />);
             setData(sorted);
             setOrder("ASC");
         }
+
     }
 
     console.log("remdered")
@@ -87,10 +79,16 @@ const TableData = (props) => {
                     <Table>
                         <Thead>
                             <Tr>
-                                {head.map((head) =>
+                                {/* {head.map((head) =>
                                     <Th key={Math.random()} onClick={() => sorting(head)}>
                                         <Box>{head} {state === head ? arrow : null}</Box>
                                     </Th>)
+                                } */}
+                                {
+                                    Object.keys(data[0]).map((x) =>
+                                        <Th key={Math.random()} onClick={() => sorting(x)}>
+                                            <Box>{x} {headerValue === x && arrow}</Box>
+                                        </Th>)
                                 }
                             </Tr>
                         </Thead>
@@ -117,6 +115,7 @@ const TableData = (props) => {
                                     (val.vehicle_model && val.vehicle_model.toLowerCase().includes(search.toLowerCase())) ||
                                     (val.driver_name && val.driver_name.toLowerCase().includes(search.toLowerCase())) ||
                                     (val.driver_address && val.driver_address.toLowerCase().includes(search.toLowerCase()))
+                                    // Object.values(val).map(x=>(x.toLowerCase().includes(search.toLowerCase())))
                                 ) {
                                     return val;
                                 }

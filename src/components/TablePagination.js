@@ -16,7 +16,7 @@ const TablePagination = ({dataPerPage, onPaginationChange, total}) => {
     useEffect(()=>{
         setNumberOfButtons(Math.ceil(total/dataPerPage));
     },[total]);
-    //  console.log(onPaginationChange);
+    
     const onButtonClick = (type) => {
         if(type === "prev"){
             if(counter===1){
@@ -34,11 +34,11 @@ const TablePagination = ({dataPerPage, onPaginationChange, total}) => {
 }
   return (
     <Box>
-        <Button onClick={()=>onButtonClick("prev")}>PREV</Button>
+       {counter > 1 && <Button m={2} onClick={()=>onButtonClick("prev")}>PREV</Button>} 
         {new Array(numberOfButtons).fill("").map((el,index)=>(
             <Button m={2} onClick={()=>setCounter(index+1)} key={index}>{index+1}</Button>
         ))}
-        <Button onClick={()=>onButtonClick("next")}>NEXT</Button>
+        {counter !== Math.ceil(total/dataPerPage) && <Button m={2} onClick={()=>onButtonClick("next")}>NEXT</Button>}
     </Box>
   )
 }
