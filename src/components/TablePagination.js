@@ -31,6 +31,8 @@ const TablePagination = ({ dataPerPage, onPaginationChange, total }) => {
             }
         }
     }
+    console.log(counter);
+    console.log(total);
     return (
         <Box>
             {counter > 1 && <Button m={2} onClick={() => onButtonClick("prev")}>PREV</Button>}

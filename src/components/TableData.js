@@ -17,6 +17,7 @@ import TablePagination from './TablePagination';
 import { ArrowDownIcon, ArrowUpIcon } from '@chakra-ui/icons';
 
 const TableData = ({ body, dataPerPage }) => {
+    const [col, setCol] = useState("");
     const [data, setData] = useState(body);
     const [arrow, setArrow] = useState(null);
     const [headerValue, setHeaderValue] = useState(null);
@@ -51,36 +52,68 @@ const TableData = ({ body, dataPerPage }) => {
         setData(filteredData);
     }, [search])
 
-    const sorting = (col) => {
-        if (order === "ASC") {
-            const sorted = [...data].sort((a, b) => {
-                if (typeof a[col] === "number") {
-                    return a[col] > b[col] ? 1 : -1
-                } else {
-                    return a[col].toLowerCase() > b[col].toLowerCase() ? 1 : -1
-                }
-            }
-            );
-            setHeaderValue(col);
-            setArrow(<ArrowUpIcon />);
-            setData(sorted);
-            setOrder("DSC");
-        } else if (order === "DSC") {
-            const sorted = [...data].sort((a, b) => {
-                if (typeof a[col] === "number") {
-                    return a[col] < b[col] ? 1 : -1
-                } else {
-                    return a[col].toLowerCase() < b[col].toLowerCase() ? 1 : -1
-                }
-            }
-            );
-            setHeaderValue(col);
-            setArrow(<ArrowDownIcon />);
-            setData(sorted);
-            setOrder("ASC");
-        }
-    }
+    // const sorting = (col) => {
+    //     if (order === "ASC") {
+    //         const sorted = [...data].sort((a, b) => {
+    //             if (typeof a[col] === "number") {
+    //                 return a[col] > b[col] ? 1 : -1
+    //             } else {
+    //                 return a[col].toLowerCase() > b[col].toLowerCase() ? 1 : -1
+    //             }
+    //         }
+    //         );
+    //         setHeaderValue(col);
+    //         setArrow(<ArrowUpIcon />);
+    //         setData(sorted);
+    //         setOrder("DSC");
+    //     } else if (order === "DSC") {
+    //         const sorted = [...data].sort((a, b) => {
+    //             if (typeof a[col] === "number") {
+    //                 return a[col] < b[col] ? 1 : -1
+    //             } else {
+    //                 return a[col].toLowerCase() < b[col].toLowerCase() ? 1 : -1
+    //             }
+    //         }
+    //         );
+    //         setHeaderValue(col);
+    //         setArrow(<ArrowDownIcon />);
+    //         setData(sorted);
+    //         setOrder("ASC");
+    //     }
+    // }
 
+    useEffect(()=>{
+        (function(col){
+            if (order === "ASC") {
+                const sorted = [...data].sort((a, b) => {
+                    if (typeof a[col] === "number") {
+                        return a[col] > b[col] ? 1 : -1
+                    } else {
+                        return a[col].toLowerCase() > b[col].toLowerCase() ? 1 : -1
+                    }
+                }
+                );
+                setHeaderValue(col);
+                setArrow(<ArrowUpIcon />);
+                setData(sorted);
+                setOrder("DSC");
+            } else if (order === "DSC") {
+                const sorted = [...data].sort((a, b) => {
+                    if (typeof a[col] === "number") {
+                        return a[col] < b[col] ? 1 : -1
+                    } else {
+                        return a[col].toLowerCase() < b[col].toLowerCase() ? 1 : -1
+                    }
+                }
+                );
+                setHeaderValue(col);
+                setArrow(<ArrowDownIcon />);
+                setData(sorted);
+                setOrder("ASC");
+            }
+        })();
+    },[col])
+    
     return (
         <Box>
             <Box>
@@ -94,9 +127,15 @@ const TableData = ({ body, dataPerPage }) => {
                     <Table>
                         <Thead>
                             <Tr>
-                                {
+                                {/* {
                                     Object.keys(!!data && data.length ? data[0]:{}).map((x, index) =>
                                         <Th key={index} onClick={() => sorting(x)}>
+                                            <Box>{x}{headerValue === x && arrow}</Box>
+                                        </Th>)
+                                } */}
+                                {
+                                    Object.keys(!!data && data.length ? data[0]:{}).map((x, index) =>
+                                        <Th key={index} onClick={() => setCol(x)}>
                                             <Box>{x}{headerValue === x && arrow}</Box>
                                         </Th>)
                                 }
