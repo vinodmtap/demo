@@ -41,8 +41,8 @@ const TableData = ({ body, dataPerPage }) => {
             }
             else {
                 let dataObjectArray = Object.values(val);
-                for(let x of dataObjectArray){
-                    if (x.toString().toLowerCase().includes(search.toString().toLowerCase())) {
+                for(let element of dataObjectArray){
+                    if (element.toString().toLowerCase().includes(search.toString().toLowerCase())) {
                         return val;
                     }
                 }
@@ -95,8 +95,8 @@ const TableData = ({ body, dataPerPage }) => {
                         <Thead>
                             <Tr>
                                 {
-                                    Object.keys(data[0]).map((x) =>
-                                        <Th key={Math.random()} onClick={() => sorting(x)}>
+                                    Object.keys(data[0]).map((x, index) =>
+                                        <Th key={index} onClick={() => sorting(x)}>
                                             <Box>{x} {headerValue === x && arrow}</Box>
                                         </Th>)
                                 }
@@ -106,7 +106,7 @@ const TableData = ({ body, dataPerPage }) => {
                             {data.slice(pagination.start, pagination.end).map(data => {
                                 return (
                                     <Tr key={data.id}>
-                                        {Object.values(data).map(x => (<><Td>{x}</Td></>))}
+                                        {Object.values(data).map((x,index) => (<Td key={index}>{x}</Td>))}
                                     </Tr>
                                 )
                             })}
