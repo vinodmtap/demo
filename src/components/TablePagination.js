@@ -41,7 +41,7 @@ const TablePagination = ({ dataPerPage, onPaginationChange, total }) => {
                     {index + 1}
                 </Button>
             ))}
-            {counter !== Math.ceil(total / dataPerPage) && <Button m={2} onClick={() => onButtonClick("next")}>NEXT</Button>}
+            {(counter !== Math.ceil(total / dataPerPage) && total>0) && <Button m={2} onClick={() => onButtonClick("next")}>NEXT</Button>}
         </Box>
     )
 }

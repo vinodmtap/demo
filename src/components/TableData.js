@@ -97,7 +97,7 @@ const TableData = ({ body, dataPerPage }) => {
                                 {
                                     Object.keys(!!data && data.length ? data[0]:{}).map((x, index) =>
                                         <Th key={index} onClick={() => sorting(x)}>
-                                            <Box>{x} {headerValue === x && arrow}</Box>
+                                            <Box>{x}{headerValue === x && arrow}</Box>
                                         </Th>)
                                 }
                             </Tr>
