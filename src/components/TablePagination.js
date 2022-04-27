@@ -3,16 +3,18 @@ import React, { useEffect, useState } from 'react'
 
 const TablePagination = ({ dataPerPage, onPaginationChange, total }) => {
     const [counter, setCounter] = useState(1);
-    const [numberOfButtons, setNumberOfButtons] = useState(0);
+    // const [numberOfButtons, setNumberOfButtons] = useState(0);
+
+    const numberOfButtons = Math.ceil(total / dataPerPage);
 
     useEffect(() => {
         const value = dataPerPage * counter;
         onPaginationChange((value - dataPerPage), value);
     }, [counter])
 
-    useEffect(() => {
-        setNumberOfButtons(Math.ceil(total / dataPerPage));
-    }, [total]);
+    // useEffect(() => {
+    //     setNumberOfButtons(Math.ceil(total / dataPerPage));
+    // }, [total]);
 
     const onButtonClick = (type) => {
         if (type === "prev") {
