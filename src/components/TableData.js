@@ -17,9 +17,9 @@ import TablePagination from './TablePagination';
 import { ArrowDownIcon, ArrowUpIcon } from '@chakra-ui/icons';
 
 const TableData = ({ body, dataPerPage }) => {
-    const [count, setCount] = useState(true);
+    const [flag, setFlag] = useState(true);
     const [data, setData] = useState(body);
-    const [arrow, setArrow] = useState(true);
+    // const [arrow, setArrow] = useState(true);
     const [headerValue, setHeaderValue] = useState(null);
     const [order, setOrder] = useState("ASC");
     const [search, setSearch] = useState("");
@@ -52,16 +52,6 @@ const TableData = ({ body, dataPerPage }) => {
         setData(filteredData);
     }, [search])
 
-   const arrowToggler = (x) => {
-    // if(order === "ASC"){
-    //     setOrder("DES");
-    // }else{
-    //     setOrder("ASC");
-    // }
-    setCount(prev=>!prev);
-    setHeaderValue(x);
-   }
-
     // const sorting = (col) => {
     //     if (order === "ASC") {
     //         const sorted = [...data].sort((a, b) => {
@@ -92,8 +82,11 @@ const TableData = ({ body, dataPerPage }) => {
     //     }
     // }
 
+    const arrowToggler = (x) => {
+        setFlag(prev=>!prev);
+        setHeaderValue(x);
+       }
     const initialRender = useRef(true);
-    
     useEffect(()=>{
         if(initialRender.current){
            initialRender.current = false;
@@ -125,7 +118,7 @@ const TableData = ({ body, dataPerPage }) => {
             };
             sorting(headerValue);
         }
-    },[headerValue,count])
+    },[headerValue,flag])
 
     return (
         <Box>
