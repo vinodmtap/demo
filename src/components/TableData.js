@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useRef } from 'react'
 import {
     Table,
     Thead,
@@ -19,7 +19,7 @@ import { ArrowDownIcon, ArrowUpIcon } from '@chakra-ui/icons';
 const TableData = ({ body, dataPerPage }) => {
     const [col, setCol] = useState("");
     const [data, setData] = useState(body);
-    const [arrow, setArrow] = useState(null);
+    const [arrow, setArrow] = useState(true);
     const [headerValue, setHeaderValue] = useState(null);
     const [order, setOrder] = useState("ASC");
     const [search, setSearch] = useState("");
@@ -52,6 +52,16 @@ const TableData = ({ body, dataPerPage }) => {
         setData(filteredData);
     }, [search])
 
+   const arrowToggler = (x) => {
+    if(order === "ASC"){
+        setOrder("DES");
+        // setHeaderValue(x)
+    }else{
+        setOrder("ASC");
+        // setHeaderValue(x);
+    }
+    setHeaderValue(x);
+   }
     // const sorting = (col) => {
     //     if (order === "ASC") {
     //         const sorted = [...data].sort((a, b) => {
@@ -82,37 +92,43 @@ const TableData = ({ body, dataPerPage }) => {
     //     }
     // }
 
-    useEffect(()=>{
-        (function(col){
-            if (order === "ASC") {
-                const sorted = [...data].sort((a, b) => {
-                    if (typeof a[col] === "number") {
-                        return a[col] > b[col] ? 1 : -1
-                    } else {
-                        return a[col].toLowerCase() > b[col].toLowerCase() ? 1 : -1
-                    }
-                }
-                );
-                setHeaderValue(col);
-                setArrow(<ArrowUpIcon />);
-                setData(sorted);
-                setOrder("DSC");
-            } else if (order === "DSC") {
-                const sorted = [...data].sort((a, b) => {
-                    if (typeof a[col] === "number") {
-                        return a[col] < b[col] ? 1 : -1
-                    } else {
-                        return a[col].toLowerCase() < b[col].toLowerCase() ? 1 : -1
-                    }
-                }
-                );
-                setHeaderValue(col);
-                setArrow(<ArrowDownIcon />);
-                setData(sorted);
-                setOrder("ASC");
-            }
-        })();
-    },[col])
+    // const initialRender = useRef(true);
+    
+    // useEffect(()=>{
+    //     if(initialRender.current){
+    //        initialRender.current = false;
+    //     }else{
+    //         (function(col){
+    //             if (order === "ASC") {
+    //                 const sorted = [...data].sort((a, b) => {
+    //                     if (typeof a[col] === "number") {
+    //                         return a[col] > b[col] ? 1 : -1
+    //                     } else {
+    //                         return a[col].toLowerCase() > b[col].toLowerCase() ? 1 : -1
+    //                     }
+    //                 }
+    //                 );
+    //                 setHeaderValue(col);
+    //                 setArrow(<ArrowUpIcon />);
+    //                 setData(sorted);
+    //                 setOrder("DSC");
+    //             } else if (order === "DSC") {
+    //                 const sorted = [...data].sort((a, b) => {
+    //                     if (typeof a[col] === "number") {
+    //                         return a[col] < b[col] ? 1 : -1
+    //                     } else {
+    //                         return a[col].toLowerCase() < b[col].toLowerCase() ? 1 : -1
+    //                     }
+    //                 }
+    //                 );
+    //                 setHeaderValue(col);
+    //                 setArrow(<ArrowDownIcon />);
+    //                 setData(sorted);
+    //                 setOrder("ASC");
+    //             }
+    //         })();
+    //     }
+    // },[col])
     
     return (
         <Box>
@@ -135,8 +151,8 @@ const TableData = ({ body, dataPerPage }) => {
                                 } */}
                                 {
                                     Object.keys(!!data && data.length ? data[0]:{}).map((x, index) =>
-                                        <Th key={index} onClick={() => setCol(x)}>
-                                            <Box>{x}{headerValue === x && arrow}</Box>
+                                        <Th key={index} onClick={() => arrowToggler(x)}>
+                                            <Box>{x}{(order === "ASC" && headerValue === x)?<ArrowUpIcon/>:<ArrowDownIcon/>}</Box>
                                         </Th>)
                                 }
                             </Tr>
