@@ -17,7 +17,7 @@ import TablePagination from './TablePagination';
 import { ArrowDownIcon, ArrowUpIcon } from '@chakra-ui/icons';
 
 const TableData = ({ body, dataPerPage }) => {
-    const [count, setCount] = useState(1);
+    const [count, setCount] = useState(true);
     const [data, setData] = useState(body);
     const [arrow, setArrow] = useState(true);
     const [headerValue, setHeaderValue] = useState(null);
@@ -58,11 +58,10 @@ const TableData = ({ body, dataPerPage }) => {
     // }else{
     //     setOrder("ASC");
     // }
-    setCount(count+1);
+    setCount(prev=>!prev);
     setHeaderValue(x);
    }
 
-   console.log(order);
     // const sorting = (col) => {
     //     if (order === "ASC") {
     //         const sorted = [...data].sort((a, b) => {
