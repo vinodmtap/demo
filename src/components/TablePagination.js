@@ -18,19 +18,12 @@ const TablePagination = ({ dataPerPage, onPaginationChange, total }) => {
 
     const onButtonClick = (type) => {
         if (type === "prev") {
-            if (counter === 1) {
-                setCounter(1);
-            } else {
-                setCounter(counter - 1)
-            }
+            (counter===1)?setCounter(1):setCounter(counter-1);
         } else if (type === "next") {
-            if (Math.ceil(total / dataPerPage) === counter) {
-                setCounter(counter);
-            } else {
-                setCounter(counter + 1);
-            }
+            (Math.ceil(total/dataPerPage)===counter)?setCounter(counter):setCounter(counter+1);
         }
     }
+    
     return (
         <Box>
             {counter > 1 && <Button m={2} onClick={() => onButtonClick("prev")}>PREV</Button>}
