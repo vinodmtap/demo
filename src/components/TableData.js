@@ -142,7 +142,9 @@ const TableData = ({ body, dataPerPage }) => {
                                 {
                                     Object.keys(!!data && data.length ? data[0]:{}).map((x, index) =>
                                         <Th key={index} onClick={() => arrowToggler(x)}>
-                                            <Box>{x}{(order === "ASC" && headerValue === x)?<ArrowUpIcon/>:<ArrowDownIcon/>}</Box>
+                                            <Box>{x}{(order === "ASC" && headerValue === x) && <ArrowDownIcon/>}
+                                                    {(order === "DSC" && headerValue === x) && <ArrowUpIcon/>}
+                                            </Box>
                                         </Th>)
                                 }
                             </Tr>
