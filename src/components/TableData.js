@@ -17,7 +17,7 @@ import TablePagination from './TablePagination';
 import { ArrowDownIcon, ArrowUpIcon } from '@chakra-ui/icons';
 
 const TableData = ({ body, dataPerPage }) => {
-    const [col, setCol] = useState("");
+    const [count, setCount] = useState(1);
     const [data, setData] = useState(body);
     const [arrow, setArrow] = useState(true);
     const [headerValue, setHeaderValue] = useState(null);
@@ -53,15 +53,16 @@ const TableData = ({ body, dataPerPage }) => {
     }, [search])
 
    const arrowToggler = (x) => {
-    if(order === "ASC"){
-        setOrder("DES");
-        // setHeaderValue(x)
-    }else{
-        setOrder("ASC");
-        // setHeaderValue(x);
-    }
+    // if(order === "ASC"){
+    //     setOrder("DES");
+    // }else{
+    //     setOrder("ASC");
+    // }
+    setCount(count+1);
     setHeaderValue(x);
    }
+
+   console.log(order);
     // const sorting = (col) => {
     //     if (order === "ASC") {
     //         const sorted = [...data].sort((a, b) => {
@@ -92,44 +93,41 @@ const TableData = ({ body, dataPerPage }) => {
     //     }
     // }
 
-    // const initialRender = useRef(true);
+    const initialRender = useRef(true);
     
-    // useEffect(()=>{
-    //     if(initialRender.current){
-    //        initialRender.current = false;
-    //     }else{
-    //         (function(col){
-    //             if (order === "ASC") {
-    //                 const sorted = [...data].sort((a, b) => {
-    //                     if (typeof a[col] === "number") {
-    //                         return a[col] > b[col] ? 1 : -1
-    //                     } else {
-    //                         return a[col].toLowerCase() > b[col].toLowerCase() ? 1 : -1
-    //                     }
-    //                 }
-    //                 );
-    //                 setHeaderValue(col);
-    //                 setArrow(<ArrowUpIcon />);
-    //                 setData(sorted);
-    //                 setOrder("DSC");
-    //             } else if (order === "DSC") {
-    //                 const sorted = [...data].sort((a, b) => {
-    //                     if (typeof a[col] === "number") {
-    //                         return a[col] < b[col] ? 1 : -1
-    //                     } else {
-    //                         return a[col].toLowerCase() < b[col].toLowerCase() ? 1 : -1
-    //                     }
-    //                 }
-    //                 );
-    //                 setHeaderValue(col);
-    //                 setArrow(<ArrowDownIcon />);
-    //                 setData(sorted);
-    //                 setOrder("ASC");
-    //             }
-    //         })();
-    //     }
-    // },[col])
-    
+    useEffect(()=>{
+        if(initialRender.current){
+           initialRender.current = false;
+        }else{
+            const sorting = (col)=>{
+                if (order === "ASC") {
+                    const sorted = [...data].sort((a, b) => {
+                        if (typeof a[col] === "number") {
+                            return a[col] > b[col] ? 1 : -1
+                        } else {
+                            return a[col].toLowerCase() > b[col].toLowerCase() ? 1 : -1
+                        }
+                    }
+                    );
+                    setOrder("DSC");
+                    setData(sorted); 
+                } else if (order === "DSC") {
+                    const sorted = [...data].sort((a, b) => {
+                        if (typeof a[col] === "number") {
+                            return a[col] < b[col] ? 1 : -1
+                        } else {
+                            return a[col].toLowerCase() < b[col].toLowerCase() ? 1 : -1
+                        }
+                    }
+                    ); 
+                    setOrder("ASC");
+                    setData(sorted);  
+                }
+            };
+            sorting(headerValue);
+        }
+    },[headerValue,count])
+
     return (
         <Box>
             <Box>
