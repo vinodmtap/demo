@@ -19,10 +19,10 @@ import { ArrowDownIcon, ArrowUpIcon } from '@chakra-ui/icons';
 const TableData = ({ body, dataPerPage }) => {
     const [flag, setFlag] = useState(true);
     const [data, setData] = useState(body);
-    // const [arrow, setArrow] = useState(true);
     const [headerValue, setHeaderValue] = useState(null);
     const [order, setOrder] = useState("ASC");
     const [search, setSearch] = useState("");
+    const[sortedResult, setSortedResult] = useState(body);
     const [pagination, setPagination] = useState({
         start: 0,
         end: dataPerPage
@@ -36,52 +36,22 @@ const TableData = ({ body, dataPerPage }) => {
     }
 
     useEffect(() => {
-        let filteredData = data.filter((val) => {
+        let filteredData = sortedResult.filter((val) => {
             if (search === "") {
                 return val;
             }
             else {
                 let dataObjectArray = Object.values(val);
                 for(let element of dataObjectArray){
-                    if (element.toString().toLowerCase().includes(search.toString().toLowerCase())) {
+                    if (element.toString().toLowerCase().match(search.toString().toLowerCase())) {
                         return val;
                     }
                 }
             }
         })
         setData(filteredData);
-    }, [search])
-
-    // const sorting = (col) => {
-    //     if (order === "ASC") {
-    //         const sorted = [...data].sort((a, b) => {
-    //             if (typeof a[col] === "number") {
-    //                 return a[col] > b[col] ? 1 : -1
-    //             } else {
-    //                 return a[col].toLowerCase() > b[col].toLowerCase() ? 1 : -1
-    //             }
-    //         }
-    //         );
-    //         setHeaderValue(col);
-    //         setArrow(<ArrowUpIcon />);
-    //         setData(sorted);
-    //         setOrder("DSC");
-    //     } else if (order === "DSC") {
-    //         const sorted = [...data].sort((a, b) => {
-    //             if (typeof a[col] === "number") {
-    //                 return a[col] < b[col] ? 1 : -1
-    //             } else {
-    //                 return a[col].toLowerCase() < b[col].toLowerCase() ? 1 : -1
-    //             }
-    //         }
-    //         );
-    //         setHeaderValue(col);
-    //         setArrow(<ArrowDownIcon />);
-    //         setData(sorted);
-    //         setOrder("ASC");
-    //     }
-    // }
-
+    }, [search,sortedResult])
+    
     const arrowToggler = (x) => {
         setFlag(prev=>!prev);
         setHeaderValue(x);
@@ -102,7 +72,8 @@ const TableData = ({ body, dataPerPage }) => {
                     }
                     );
                     setOrder("DSC");
-                    setData(sorted); 
+                    setSortedResult(sorted);
+            
                 } else if (order === "DSC") {
                     const sorted = [...data].sort((a, b) => {
                         if (typeof a[col] === "number") {
@@ -113,7 +84,8 @@ const TableData = ({ body, dataPerPage }) => {
                     }
                     ); 
                     setOrder("ASC");
-                    setData(sorted);  
+                    setSortedResult(sorted);
+                
                 }
             };
             sorting(headerValue);
@@ -171,3 +143,36 @@ const TableData = ({ body, dataPerPage }) => {
 }
 
 export default TableData
+
+
+
+
+// const sorting = (col) => {
+    //     if (order === "ASC") {
+    //         const sorted = [...data].sort((a, b) => {
+    //             if (typeof a[col] === "number") {
+    //                 return a[col] > b[col] ? 1 : -1
+    //             } else {
+    //                 return a[col].toLowerCase() > b[col].toLowerCase() ? 1 : -1
+    //             }
+    //         }
+    //         );
+    //         setHeaderValue(col);
+    //         setArrow(<ArrowUpIcon />);
+    //         setData(sorted);
+    //         setOrder("DSC");
+    //     } else if (order === "DSC") {
+    //         const sorted = [...data].sort((a, b) => {
+    //             if (typeof a[col] === "number") {
+    //                 return a[col] < b[col] ? 1 : -1
+    //             } else {
+    //                 return a[col].toLowerCase() < b[col].toLowerCase() ? 1 : -1
+    //             }
+    //         }
+    //         );
+    //         setHeaderValue(col);
+    //         setArrow(<ArrowDownIcon />);
+    //         setData(sorted);
+    //         setOrder("ASC");
+    //     }
+    // }
