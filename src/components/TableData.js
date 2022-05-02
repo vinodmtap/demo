@@ -43,7 +43,10 @@ const TableData = ({ body, dataPerPage }) => {
             else {
                 let dataObjectArray = Object.values(val);
                 for(let element of dataObjectArray){
-                    if (element.toString().toLowerCase().match(search.toString().toLowerCase())) {
+                    // if (element.toString().toLowerCase().includes(search.toString().toLowerCase())) {
+                        let ele = element.toString();
+                        let se = search.toString();
+                        if (/se/gi.test(/ele/)) {
                         return val;
                     }
                 }
