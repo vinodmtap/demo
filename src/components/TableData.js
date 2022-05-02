@@ -46,7 +46,7 @@ const TableData = ({ body, dataPerPage }) => {
                     // if (element.toString().toLowerCase().includes(search.toString().toLowerCase())) {
                         let ele = element.toString();
                         let se = search.toString();
-                        if (/se/gi.test(/ele/)) {
+                        if (ele.match(new RegExp(/se/gi))) {
                         return val;
                     }
                 }
