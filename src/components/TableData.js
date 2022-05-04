@@ -17,12 +17,11 @@ import TablePagination from './TablePagination';
 import { ArrowDownIcon, ArrowUpIcon } from '@chakra-ui/icons';
 
 const TableData = ({ body, dataPerPage }) => {
-    const [flag, setFlag] = useState(true);
     const [data, setData] = useState(body);
     const [headerValue, setHeaderValue] = useState(null);
-    const [order, setOrder] = useState("ASC");
+    const [order, setOrder] = useState(null);
     const [search, setSearch] = useState("");
-    const[sortedResult, setSortedResult] = useState(body);
+    const [sortedResult, setSortedResult] = useState(body);
     const [pagination, setPagination] = useState({
         start: 0,
         end: dataPerPage
@@ -42,7 +41,7 @@ const TableData = ({ body, dataPerPage }) => {
             }
             else {
                 let dataObjectArray = Object.values(val);
-                for(let element of dataObjectArray){
+                for (let element of dataObjectArray) {
                     if (element.toString().toLowerCase().includes(search.toString().toLowerCase())) {
                         return val;
                     }
@@ -50,47 +49,42 @@ const TableData = ({ body, dataPerPage }) => {
             }
         })
         setData(filteredData);
-    }, [search,sortedResult])
-    
+    }, [search, sortedResult])
+
     const arrowToggler = (x) => {
-        setFlag(prev=>!prev);
-        setHeaderValue(x);
-       }
-    const initialRender = useRef(true);
-    useEffect(()=>{
-        if(initialRender.current){
-           initialRender.current = false;
-        }else{
-            const sorting = (col)=>{
-                if (order === "ASC") {
-                    const sorted = [...data].sort((a, b) => {
-                        if (typeof a[col] === "number") {
-                            return a[col] > b[col] ? 1 : -1
-                        } else {
-                            return a[col].toLowerCase() > b[col].toLowerCase() ? 1 : -1
-                        }
+        headerValue !==x && setHeaderValue(x);
+        setOrder(order === "DSC" ? "ASC" : "DSC");
+    }
+
+    useEffect(() => {
+        if (order === null) {
+            return;
+        } else {
+            const col = headerValue;
+            if (order === "ASC") {
+                const sorted = [...data].sort((a, b) => {
+                    if (typeof a[col] === "number") {
+                        return a[col] > b[col] ? 1 : -1
+                    } else {
+                        return a[col].toLowerCase() > b[col].toLowerCase() ? 1 : -1
                     }
-                    );
-                    setOrder("DSC");
-                    setSortedResult(sorted);
-            
-                } else if (order === "DSC") {
-                    const sorted = [...data].sort((a, b) => {
-                        if (typeof a[col] === "number") {
-                            return a[col] < b[col] ? 1 : -1
-                        } else {
-                            return a[col].toLowerCase() < b[col].toLowerCase() ? 1 : -1
-                        }
-                    }
-                    ); 
-                    setOrder("ASC");
-                    setSortedResult(sorted);
-                
                 }
-            };
-            sorting(headerValue);
+                );
+                setSortedResult(sorted);
+
+            } else if (order === "DSC") {
+                const sorted = [...data].sort((a, b) => {
+                    if (typeof a[col] === "number") {
+                        return a[col] < b[col] ? 1 : -1
+                    } else {
+                        return a[col].toLowerCase() < b[col].toLowerCase() ? 1 : -1
+                    }
+                }
+                );
+                setSortedResult(sorted);
+            }
         }
-    },[headerValue,flag])
+    }, [order])
 
     return (
         <Box>
@@ -106,20 +100,20 @@ const TableData = ({ body, dataPerPage }) => {
                         <Thead>
                             <Tr>
                                 {
-                                    Object.keys(!!data && data.length ? data[0]:{}).map((x, index) =>
+                                    Object.keys(!!data && data.length ? data[0] : {}).map((x, index) =>
                                         <Th key={index} onClick={() => arrowToggler(x)}>
-                                            <Box>{x}{(order === "ASC" && headerValue === x) && <ArrowDownIcon/>}
-                                                    {(order === "DSC" && headerValue === x) && <ArrowUpIcon/>}
+                                            <Box>{x}{(order === "ASC" && headerValue === x) && <ArrowDownIcon />}
+                                                {(order === "DSC" && headerValue === x) && <ArrowUpIcon />}
                                             </Box>
                                         </Th>)
                                 }
                             </Tr>
                         </Thead>
                         <Tbody>
-                            {data.slice(pagination.start, pagination.end).map(data => {
+                            {data.slice(pagination.start, pagination.end).map((data,index) => {
                                 return (
-                                    <Tr key={data.id}>
-                                        {Object.values(data).map((x,index) => (<Td key={index}>{x}</Td>))}
+                                    <Tr key={index}>
+                                        {Object.values(data).map((x, index) => (<Td key={index}>{x}</Td>))}
                                     </Tr>
                                 )
                             })}
